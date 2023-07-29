@@ -1,4 +1,6 @@
 import { useState } from 'react' ;
+//import App from '../App';
+
 
 function SignUpForm() {
     
@@ -6,8 +8,20 @@ function SignUpForm() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     
+    const handleUsernameChange = (event) =>{
+        setUsername(event.target.value) ;
+    };
+
+    const handlePasswordChange = (event) =>{
+        setPassword(event.target.value) ;
+    };
+
     async function handleSubmit(event) {
         event.preventDefault();
+
+        if (!username || !password) {
+            console.log("Please enter both username and password");
+        }
         
         try {
             const response = await fetch ("https://fsa-jwt-practice.herokuapp.com/signup", 
@@ -20,14 +34,14 @@ function SignUpForm() {
             });
             const result = await response.json();
             const token = result.token;
+            
             return token ;   
                 
                 
         } catch (error) {
             setError(error.message);
         }
-        setUsername("");
-        setPassword("");
+        // setToken(result.token);
     }
 
     return (
@@ -38,16 +52,16 @@ function SignUpForm() {
                 <label> 
                     Username: {" "}
                     <input 
-                        value={username} 
-                        onChange={(e) => {setUsername(e.target.value)}}
+                        value={ username } 
+                        onChange={ handleUsernameChange }
                     />
                 </label>
                 <label>
                     Password: {" "}
                     <input 
                         type= "password"
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                        value={ password } 
+                        onChange={ handlePasswordChange } 
                     />
                 </label>
                 <button>Submit</button>
