@@ -1,17 +1,17 @@
 
-
+import Authenticate from "./Authenticate";
+import SignUpForm from "./SignUpForm";
 import './App.css'
+
 
 function App() {
   
   return (
     <>
-      <div>
-        
-      </div>
-      
+      <Authenticate />
+      <SignUpForm />
     </>
-  )
+  );
 }
 
-export default App
+export default App ;
